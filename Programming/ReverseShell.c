@@ -25,7 +25,8 @@ int main(int argc, char *argv[]) {
     dest.sin_port = htons(PORT); //helps with Endianness
 
     // Create a TCP connection. If connection fails, exit.
-    if(connect(sock, (struct sockaddr *)&dest,sizeof(struct sockaddr)) != 0)
+    int result = connect(sock, (struct sockaddr *)&dest,sizeof(struct sockaddr));
+    if(result != 0)
     {
         puts("Unable to establish connection!");
         return 1;
